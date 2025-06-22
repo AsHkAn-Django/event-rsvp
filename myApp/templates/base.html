@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load django_bootstrap5 %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event RSVP</title>
+    {% bootstrap_css %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'myApp:home' %}">RSVP</a>
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'myApp:home' %}" aria-current="page">Home <span class="visually-hidden">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownId">
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <form action="{% url 'logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="dropdown-item">Logout</button>
+                        </form>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'registration:sign_up' %}">Sign Up</a>
+                </li>
+                {% endif %}
+            </ul>
+            <form class="d-flex my-2 my-lg-0">
+                <input class="form-control me-sm-2" type="text" placeholder="Search" />
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    {% block content %}
+    {% endblock content %}
+    {% bootstrap_javascript %}
+</body>
+</html>

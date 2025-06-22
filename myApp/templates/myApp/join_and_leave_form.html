@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2>Are you sure you want to {% if user in event.attendees.all %} leave the {{ event.title }} {% else %} join the {{ event.title }} {% endif %}?</h2>
+  <form action="" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button type="submit" class="btn {% if user in event.attendees.all %} btn-outline-danger {% else %} btn-outline-success {% endif %}">
+      {% if user in event.attendees.all %} Leave {% else %} Join {% endif %}
+    </button>
+  </form>
+</div>
+{% endblock content %}
