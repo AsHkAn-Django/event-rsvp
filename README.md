@@ -5,15 +5,13 @@ This is part of my journey as I learn and improve my skills.
 
 ## About the Project
 
-This project is built using Django and includes basic frontend styling with HTML, CSS, Bootstrap, and some JavaScript.
-I usually focus on the backend side of things and try to keep things simple and clean.
-Each project I make is a way for me to learn something new or reinforce what I already know.
+This Event RSVP System lets users book event tickets, pay securely online, and receive digital tickets with QR codes. It manages attendee lists and sends email confirmations automatically. The project focuses on real-world skills like payment gateway integration, secure transactions, and dynamic ticket generation.
 
 ## Features
 
-- Feature 1
-- Feature 2
-- Feature 3
+- Integrate a payment gateway (e.g., Stripe) for processing event ticket payments.
+- Generate digital tickets with QR codes upon successful booking.
+- Manage attendee lists and send email confirmations.
 
 ## Technologies Used
 
