@@ -44,6 +44,8 @@ INSTALLED_APPS = [
 
     'myApp',
     'registration',
+    'order',
+    'payment',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +134,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'myApp:home'
 LOGOUT_REDIRECT_URL = 'myApp:home'
+
+
