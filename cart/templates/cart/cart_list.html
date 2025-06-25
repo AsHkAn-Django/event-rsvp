@@ -1,24 +1,48 @@
 {% extends 'base.html' %}
+{% load django_bootstrap5 %}
 
 {% block content %}
 <div class="container mt-5">
-  {% for event in event_list %}
-  <div class="card mb-3 {% if user in event.attendees.all %} text-bg-success {% endif %}">
-    <div class="card-header">{{ event.event_date }}</div>
-    <div class="card-body">
-      <h4 class="card-title">{{ event.title }}</h4>
-      <p class="card-text">{{ event.description }}</p>
-      <a href="{% url 'myApp:join_or_leave' event.pk %}" class="btn {% if user in event.attendees.all %} btn-outline-warning {% else %} btn-outline-info {% endif %}">
-        {% if user in event.attendees.all %} Leave {% else %} Join {% endif %}
-      </a>
-    </div>
-    <div class="card-footer text-muted">
-      Guests:
-      {% for user in event.attendees.all %}
-        {{ user.username }}{% if not forloop.last %}, {% endif %}
-      {% endfor %}
-    </div>
+  <h2 class="mb-4">Your Cart</h2>
+
+  {% if cart.items.exists %}
+  <div class="table-responsive">
+    <table class="table table-striped table-hover align-middle shadow-sm">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Event</th>
+          <th scope="col">Date</th>
+          <th scope="col">Price</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart.items.all %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ item.product.title }}</td>
+          <td>{{ item.product.event_date|date:"M d, Y H:i" }}</td>
+          <td>${{ item.product.price }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>${{ item.get_cost|floatformat:2 }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr class="table-secondary">
+          <th colspan="5" class="text-end">Total</th>
+          <th>${{ cart.get_total_cost|floatformat:2 }}</th>
+        </tr>
+      </tfoot>
+    </table>
+    <a href="" class="btn btn-warning">Proceed Payment</a>
   </div>
-  {% endfor %}
+  {% else %}
+  <div class="alert alert-info" role="alert">
+    Your cart is empty.
+  </div>
+  {% endif %}
 </div>
-{% endblock content %}
+{% endblock %}

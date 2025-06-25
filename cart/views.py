@@ -15,8 +15,8 @@ def cart_add(request, pk):
     if request.method == "POST":
         form = CartAddForm(request.POST)
         if form.is_valid():
-            cd = form.cleaned_data()
-            cart = Cart.objects.get_or_create(user=user)
+            cd = form.cleaned_data
+            cart, _ = Cart.objects.get_or_create(user=user)
             cart_item, created = CartItem.objects.get_or_create(
                 cart=cart,
                 product=event,
@@ -24,12 +24,19 @@ def cart_add(request, pk):
             if not created:
                 cart_item.quantity += cd['quantity']
                 cart_item.save()
-            return render(redirect('cart:cart_list'))
+            return redirect('cart:cart_list')
     else:
         form = CartAddForm()
-
     return render(request, "cart/cart_add.html", {"event": event, "form": form})
 
+
+@login_required
+def cart_list(request):
+    cart = get_object_or_404(
+        Cart.objects.prefetch_related('items__product'),
+        user=request.user
+    )
+    return render(request, 'cart/cart_list.html', {'cart': cart})
 
 
 
