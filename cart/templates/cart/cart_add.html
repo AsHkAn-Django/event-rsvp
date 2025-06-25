@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="card mb-3 {% if user in event.attendees.all %} text-bg-success {% endif %}">
+    <div class="card-header">{{ event.event_date }}</div>
+    <div class="card-body">
+      <h4 class="card-title">{{ event.title }}</h4>
+      <p class="card-text">{{ event.description }}</p>
+
+      <div class="col-3">
+        <form action="" method="post">
+          {% csrf_token %}
+          {% bootstrap_form form %}
+          <button type="submit" class="btn btn-primary">Buy Ticket</button>
+        </form>
+      </div>
+
+
+    </div>
+    <div class="card-footer text-muted">
+      Guests:
+      {% for user in event.attendees.all %}
+        {{ user.username }}{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

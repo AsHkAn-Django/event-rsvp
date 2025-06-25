@@ -8,12 +8,10 @@
     <div class="card-body">
       <h4 class="card-title">{{ event.title }}</h4>
       <p class="card-text">{{ event.description }}</p>
-      <a href="{% url 'myApp:join_or_leave' event.pk %}" class="btn {% if user in event.attendees.all %} btn-outline-warning {% else %} btn-outline-info {% endif %}">
-        {% if user in event.attendees.all %} Leave {% else %} Join {% endif %}
-      </a>
+      <a href="{% url 'cart:cart_add' event.pk %}" class="btn btn-warning">Buy Ticket</a>
     </div>
     <div class="card-footer text-muted">
-      Guests: 
+      Guests:
       {% for user in event.attendees.all %}
         {{ user.username }}{% if not forloop.last %}, {% endif %}
       {% endfor %}

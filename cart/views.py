@@ -1,3 +1,38 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, get_object_or_404, render
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
+from cart.models import Cart, CartItem
+from myApp.models import Event
+from .forms import CartAddForm
+
+
+
+@login_required
+def cart_add(request, pk):
+    """Add ticket to cart."""
+    event = get_object_or_404(Event, pk=pk)
+    user = request.user
+    if request.method == "POST":
+        form = CartAddForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data()
+            cart = Cart.objects.get_or_create(user=user)
+            cart_item, created = CartItem.objects.get_or_create(
+                cart=cart,
+                product=event,
+                quantity=cd['quantity'],)
+            if not created:
+                cart_item.quantity += cd['quantity']
+                cart_item.save()
+            return render(redirect('cart:cart_list'))
+    else:
+        form = CartAddForm()
+
+    return render(request, "cart/cart_add.html", {"event": event, "form": form})
+
+
+
+
+
+
+
