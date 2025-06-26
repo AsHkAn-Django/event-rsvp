@@ -17,13 +17,17 @@ def cart_add(request, pk):
         if form.is_valid():
             cd = form.cleaned_data
             cart, _ = Cart.objects.get_or_create(user=user)
+
+            # This Checks if the user has this item in his cart so doesnt duplicate it and just update the quantity
             cart_item, created = CartItem.objects.get_or_create(
                 cart=cart,
-                product=event,
-                quantity=cd['quantity'],)
+                product=event,)
             if not created:
                 cart_item.quantity += cd['quantity']
-                cart_item.save()
+            else:
+                cart_item.quantity = cd['quantity']
+
+            cart_item.save()
             return redirect('cart:cart_list')
     else:
         form = CartAddForm()
