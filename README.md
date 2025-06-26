@@ -46,7 +46,14 @@ You can find more of my work here: [My GitHub](https://github.com/AsHkAn-Django)
    `python manage.py runserver`
 
 ## Tutorial
+### for getting STRIPE_WEBHOOK_SECRET
+```shell
+docker run --rm -it stripe/stripe-cli:latest login
 
-COMING SOON
+docker run --rm -it \
+--network host \
+-v $HOME/.stripe:/root/.config/stripe \
+stripe/stripe-cli:latest listen --forward-to localhost:8000/payment/webhook/
 
----
+docker run --rm -it --network host -v $HOME/.stripe:/root/.config/stripe stripe/stripe-cli:latest listen --forward-to localhost:8000/payment/webhook/
+```

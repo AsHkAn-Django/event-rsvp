@@ -140,3 +140,15 @@ LOGOUT_REDIRECT_URL = 'myApp:home'
 STRIPE_PUBLIC_KEY = config('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
 STRIPE_API_VERSION = '2024-04-10'
+
+# for getting this do:
+# docker run --rm -it stripe/stripe-cli:latest login
+
+# docker run --rm -it \
+#   --network host \
+#   -v $HOME/.stripe:/root/.config/stripe \
+#   stripe/stripe-cli:latest listen --forward-to localhost:8000/payment/webhook/
+
+# docker run --rm -it --network host -v $HOME/.stripe:/root/.config/stripe stripe/stripe-cli:latest listen --forward-to localhost:8000/payment/webhook/
+
+STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET')
