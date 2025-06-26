@@ -21,7 +21,7 @@ def order_create(request):
                     price=item.product.price,
                     quantity=item.quantity,
                 )
-            return redirect('payment:process')
+            return redirect('payment:process', order_id=order.id)
     else:
         form = OrderForm()
     return render(request, 'order/order_create.html', {'form': form})
