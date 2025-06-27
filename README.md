@@ -57,3 +57,25 @@ stripe/stripe-cli:latest listen --forward-to localhost:8000/payment/webhook/
 
 docker run --rm -it --network host -v $HOME/.stripe:/root/.config/stripe stripe/stripe-cli:latest listen --forward-to localhost:8000/payment/webhook/
 ```
+
+
+### for running the app you need to open 4 terminals
+1. django server
+```bash
+python manage.py runserver
+```
+
+2. redis
+```bash
+redis-server
+```
+
+3. celery worker
+```bash
+celery -A eventRsvpSystem worker --loglevel=info
+```
+
+4. stripe webhook
+```bash
+docker run --rm -it --network host -v $HOME/.stripe:/root/.config/stripe stripe/stripe-cli:latest listen --forward-to localhost:8000/payment/webhook/
+```
