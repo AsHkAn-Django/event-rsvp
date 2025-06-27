@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 import stripe.error
 from order.models import Order
 from cart.models import Cart
+from .task import send_successful_payment_email
 
 
 
@@ -38,6 +39,9 @@ def stripe_webhook(request):
             order.paid = True
             order.stripe_id = session.payment_intent
             order.save()
+
+            # Send ticket via email
+            send_successful_payment_email.delay(order.id)
 
             # clear cart
             cart = Cart.objects.filter(user=order.user).first()
