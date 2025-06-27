@@ -12,6 +12,7 @@ class Order(models.Model):
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
     stripe_id = models.CharField(max_length=250, blank=True)
+    ticket_file = models.FileField(upload_to='tickets/', blank=True)
 
     class Meta:
         ordering = ['-created']

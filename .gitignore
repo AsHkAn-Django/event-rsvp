@@ -4,6 +4,7 @@ TODOLIST.md
 /staticfiles/
 *.Zone.Identifier
 *:.Zone.Identifier
+dump.rdb
 
 
 # Byte-compiled / optimized / DLL files

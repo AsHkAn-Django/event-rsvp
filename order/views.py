@@ -1,8 +1,14 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.staticfiles import finders
+from django.http import HttpResponse
+from django.template.loader import render_to_string
 
 from .forms import OrderForm
-from .models import OrderItem
+from .models import OrderItem, Order
 from cart.models import CartItem
+
+import weasyprint
 
 
 def order_create(request):
@@ -26,3 +32,8 @@ def order_create(request):
         form = OrderForm()
     return render(request, 'order/order_create.html', {'form': form})
 
+
+@login_required
+def my_orders_list(request):
+    orders = Order.objects.filter(user=request.user)
+    return render(request, 'order/my_orders_list.html', {'orders': orders})
