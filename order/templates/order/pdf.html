@@ -1,0 +1,48 @@
+<html>
+<body>
+    <div class="ticket">
+        <header>
+            <h1>🎫 Event Ticket</h1>
+            <p><strong>Order ID:</strong> {{ order.id }}</p>
+            <p><strong>Date:</strong> {{ order.created|date:"F j, Y, H:i" }}</p>
+        </header>
+
+        <section class="user-info">
+            <h2>Customer</h2>
+            <p><strong>Name:</strong> {{ order.first_name }} {{ order.last_name }}</p>
+            <p><strong>Email:</strong> {{ order.email }}</p>
+        </section>
+
+        <section class="items">
+            <h2>Tickets</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order.items.all %}
+                    <tr>
+                        <td>{{ item.product.title }}</td>
+                        <td>${{ item.price }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>${{ item.get_cost|floatformat:2 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <p class="total"><strong>Total Paid:</strong> ${{ order.get_total_cost|floatformat:2 }}</p>
+        </section>
+
+        {% if order.paid %}
+        <div class="status paid">✅ Paid</div>
+        {% else %}
+        <div class="status unpaid">❌ Not Paid</div>
+        {% endif %}
+    </div>
+</body>
+</html>

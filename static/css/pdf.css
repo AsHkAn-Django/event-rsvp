@@ -1,0 +1,69 @@
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: #f9f9f9;
+  padding: 2rem;
+}
+
+.ticket {
+  max-width: 700px;
+  margin: auto;
+  background: white;
+  border: 2px dashed #333;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+header {
+  text-align: center;
+  border-bottom: 2px solid #eee;
+  margin-bottom: 1.5rem;
+}
+
+header h1 {
+  margin: 0;
+  color: #222;
+}
+
+.user-info, .items {
+  margin-bottom: 1.5rem;
+}
+
+.items table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+
+.items th, .items td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.total {
+  text-align: right;
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.status {
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.status.paid {
+  background-color: #e0f7e9;
+  color: #2e7d32;
+  border: 1px solid #2e7d32;
+}
+
+.status.unpaid {
+  background-color: #fbe9e7;
+  color: #d32f2f;
+  border: 1px solid #d32f2f;
+}
