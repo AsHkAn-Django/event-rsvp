@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
-  <h2>Transaction canceled</h2>
+<div class="text-center mt-5">
+    <h2 class="text-danger fw-bold">❌ Transaction Canceled</h2>
+    <p class="lead mt-3">
+        Your payment was not completed. If this was a mistake, please try again or contact support.
+    </p>
+    <a href="{% url 'myApp:home' %}" class="btn btn-outline-primary mt-3">Return to Home</a>
+</div>
 {% endblock content %}
