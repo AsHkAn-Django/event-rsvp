@@ -13,6 +13,7 @@ class Order(models.Model):
     paid = models.BooleanField(default=False)
     stripe_id = models.CharField(max_length=250, blank=True)
     ticket_file = models.FileField(upload_to='tickets/', blank=True)
+    qr_file = models.ImageField(upload_to='qr_files/', blank=True)
 
     class Meta:
         ordering = ['-created']
